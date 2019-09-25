@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="utf-8" />
+    <!-- 导入jq包-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        //页面加载,绑定全局点击事件
+        $(function () {
+            //指定按钮点击
+            $("#btu").click(function () {
+                //弹
+                //异步请求代码
+                var jsonObj = {"userName":"feng","password":"123"};
+                $.ajax({
+                    url:"http://localhost:8080/login/student",                                        //请求地址
+                    contentType:"application/json;setChar=utf-8",               //发送的数据类型及编码格式
+                    data: JSON.stringify(jsonObj),    //发送的JSON数据
+                    dataType:"JSON",                                            //期待服务端返回的数据库格式
+                    type:"post",                                                //发送请求的的方式
+                    success:function (msg) {                                    //请求成功,执行的方法, msg是返回的参数
+                     //服务器成功响应的数据
+                     alert("Data Save code "+msg);
+                    },
+                    error:function () {
+                        alert("请求失败!");                                     //请求失败,执行的方法
+                    }
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+<a href="User/TestModelAndView">TestModelAndView,使用ModelAndView存储对象和转发页面</a>
+<hr>
+<a href="User/TestString">TestString,返回String类型进行视图解析</a>
+<hr>
+<a href="User/TestVoid">TestVoid,无返回值,使用请求转发,重定向和以流的形式写回给客户端</a>
+<hr>
+<a href="User/TestForwardOrRedirect">TestForwardOrRedirect,使用关键字来请求转发和重定向</a>
+<hr>
+<button id="btu">发送ajax异步请求</button>
+</body>
+</html>

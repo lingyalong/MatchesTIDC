@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tidc.match.mapper.TeamMapper">
+    <insert id="foundTeam" parameterType="team" useGeneratedKeys="true" keyProperty="id">
+        insert into team(name,team_student_id) values(#{name},#{team_student_id})
+    </insert>
+    <update id="upMatchId" parameterType="team">
+        update Team set team_works_id=#{team_works_id} where id=#{id}
+    </update>
+    <select id="getTeamMemberStudentId" parameterType="int" resultType="java.lang.Integer">
+        select member_student_id from member where id=#{id}
+    </select>
+</mapper>

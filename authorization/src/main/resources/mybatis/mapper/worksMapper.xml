@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tidc.match.mapper.WorksMaper">
+    <insert id="foundWorks" parameterType="works" useGeneratedKeys="true" keyProperty="id">
+        insert into works(works_student_id,name,logo,brief,url,works_matchs_id,works_team_id,score) values(#{works_student_id},#{name},#{logo},#{brief},#{url},#{works_matchs_id},#{works_team_id},#{score})
+    </insert>
+    <!--这个学生id和url去查询当前学生是否有下载这个文件的权限-->
+    <select id="affirmUrl" parameterType="java.util.Map" resultType="works">
+        select * from works where works_student_id = #{studentId}  and id = #{worksId}
+    </select>
+    <select id="selectStudentWorks" resultType="works" parameterType="java.util.Map">
+        select * from works where id=#{id} and works_student_id =#{works_student_id}
+    </select>
+    <select id="getStudentWorksAll" resultType="works" parameterType="int">
+        select * from works where works_student_id =#{id}
+    </select>
+    <!--老师评分之后增加总分-->
+    <update id="addScore" parameterType="java.util.Map">
+        update works set score=score+#{score} where id=#{id}
+    </update>
+    <!--根据比赛id查询这个比赛下的所有works并且排序-->
+    <select id="getMatchIdAll" resultType="works" parameterType="int">
+        select * from works where works_matchs_id=#{id}  order by score asc
+    </select>
+    <!--查重返回id如果有就不允许创建项目-->
+    <select id="repetition" parameterType="java.util.Map" resultType="works">
+        select * from works where works_student_id=#{student} and works_matchs_id=#{match}
+    </select>
+    <update id="putWorks" parameterType="works">
+        update works
+        <set>
+            <if test="brief!=null">
+                brief=#{brief},
+            </if>
+            <if test="url!=null">
+                url=#{url},
+            </if>
+            <if test="logo!=null">
+                logo=#{logo},
+            </if>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+        </set>
+
+        where id=#{id}
+    </update>
+</mapper>

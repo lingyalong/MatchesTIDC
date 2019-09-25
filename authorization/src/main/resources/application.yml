@@ -1,0 +1,53 @@
+mybatis:
+  config-location: classpath:mybatis/mybatisConfig.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    #    连接超时时间 毫秒
+    timeout: 100
+    jedis:
+      pool:
+        #        连接池最大连接数
+        max-active: 10
+        #        最小空闲连接数
+        min-idle: 5
+        #        连接池最大阻塞等待时间 -1表示无线
+        max-wait: -1
+
+  mail:
+    username: 1463158635@qq.com
+    password: kerefikmbwyoibaj
+    host: smtp.qq.com
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 546100
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/match?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+#    #   数据源其他配置
+#    initialSize: 40
+#    minIdle: 30
+#    maxActive: 60
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    poolPreparedStatements: true
+#    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#    filters: stat,wall,log4j
+#    maxPoolPreparedStatementPerConnectionSize: 20
+#    useGlobalDataSourceStat: true
+#    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+
+
+
+
+server:
+  port: 5461

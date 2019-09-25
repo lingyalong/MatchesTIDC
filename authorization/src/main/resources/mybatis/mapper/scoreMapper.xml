@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tidc.match.mapper.ScoreMapper">
+    <insert id="putScore" parameterType="score">
+        insert into score(student_id,teacher_id,score,matchs_id,score_works_id) values(#{student_id},#{teacher_id},#{score},#{matchs_id},#{score_works_id})
+    </insert>
+    <select id="selectStudent_id" parameterType="int" resultType="int">
+        select works_student_id from works where id=#{value}
+    </select>
+    <select id="selectScore" parameterType="score" resultType="score">
+        select * from score where teacher_id=#{teacher_id} and score_works_id=#{score_works_id}
+    </select>
+</mapper>

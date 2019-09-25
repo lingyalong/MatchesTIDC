@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tidc.authorization.mapper.UserMapper">
+    <select id="selectStudent" parameterType="String" resultType="student">
+        select * from student where email= #{value}
+    </select>
+    <select id="selectTeacher" parameterType="String" resultType="teacher">
+        select * from teacher where email=#{value}
+    </select>
+    <select id="selectStudentEmail" parameterType="student" resultType="student">
+        select * from student where name=#{name} and email=#{email}
+    </select>
+    <select id="selectTeacherEmail" parameterType="teacher" resultType="teacher">
+        select * from teacher where name=#{name} and email=#{email}
+    </select>
+    <select id="findTeacher" parameterType="String" resultType="teacher">
+        select * from  teacher where email=#{email}
+    </select>
+    <insert id="addStudent" parameterType="student" >
+        insert into student(name,password,telephone,email,gender,major,classGrade,card,studentNum) values(#{name},#{password},#{telephone},#{email},#{gender},#{major},#{classGrade},#{card},#{studentNum})
+    </insert>
+    <insert id="addTeacher" parameterType="teacher" >
+        insert into teacher(userName,password,telephone,email,school) values(#{userName},#{password},#{telephone},#{email},#{school})
+    </insert>
+    <select id="selectStudentUser" parameterType="String" resultType="student">
+        select * from student where email=#{value}
+    </select>
+    <select id="selectStudent_id" parameterType="int" resultType="student">
+        select * from student where id=#{value}
+    </select>
+    <select id="get_team_member_student_all" parameterType="java.util.List" resultType="string">
+        select name from student where
+            <foreach collection="list" item="item" open="(" separator="and" close=")">
+            id=#{item}
+            </foreach>
+    </select>
+</mapper>

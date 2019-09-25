@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tidc.match.mapper.MatchsMapper">
+    <resultMap id="team_member" type="team">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="team_student_id" property="team_student_id"></result>
+        <result column="team_works_id" property="team_works_id"></result>
+        <collection property="list" ofType="int">
+            <result column="member_student_id" property="list"></result>
+        </collection>
+    </resultMap>
+    <select id="selectTeacherMatchs" parameterType="int" resultType="int">
+        select power_matchs_id from power where power_teacher_id=#{value}
+    </select>
+    <insert id="insertMatchs" parameterType="matchs" useGeneratedKeys="true" keyProperty="id">
+        insert into matchs(brief,url,logo,name,school,domain,teacher_id,time,number,flag) values(#{brief},#{url},#{logo},#{name},#{school},#{domain},${teacher_id},#{time},#{number},#{flag})
+    </insert>
+    <select id="selectMatchs" parameterType="int" resultType="matchs">
+        select * from matchs where id=#{value}
+    </select>
+    <select id="selectMyMatchs" parameterType="int" resultType="matchs">
+        select * from matchs where teacher_id=#{value}
+    </select>
+    <insert id="addPower" parameterType="power">
+        insert into power(power_teacher_id,power_matchs_id) values(#{power_teacher_id},#{power_matchs_id})
+    </insert>
+    <select id="selectMatchsWorks" parameterType="int" resultType="works">
+        select * from works where works_matchs_id=#{value}
+    </select>
+    <select id="selectTeam_member" resultMap="team_member" parameterType="int" >
+        select team.id,name,team_student_id,team_works_id,member_student_id from team,member where team.team_works_id=#{member.member_team_id}
+    </select>
+    <select id="selectWorks" parameterType="int" resultType="works">
+        select * from works where id=#{value}
+    </select>
+    <update id="updateMatch" parameterType="matchs">
+        update matchs
+        <set>
+            <if test="brief!=null">
+                brief=#{brief},
+            </if>
+            <if test="url!=null">
+                url=#{url},
+            </if>
+            <if test="logo!=null">
+                logo=#{logo},
+            </if>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="domain!=null">
+                domain=#{domain},
+            </if>
+            <if test="time!=null">
+                time=#{time}
+            </if>
+        </set>
+
+        where id=#{id}
+    </update>
+    <update id="numberUP" parameterType="int">
+        update matchs set number=number+'1' where id=#{id}
+    </update>
+    <select id="checkMatch" resultType="matchs">
+        select * from matchs where flag=1
+    </select>
+    <update id="setFlag" parameterType="int">
+        update matchs set flag=0 where id=#{id}
+    </update>
+    <select id="checkMyMatch" resultType="matchs" parameterType="string">
+        select * from matchs where flag=1 and school=#{value}
+    </select>
+</mapper>
