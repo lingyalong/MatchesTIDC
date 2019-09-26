@@ -32,6 +32,7 @@ public class DruidConfig {
 	public ServletRegistrationBean servletRegistrationBean(){
 		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
 		Map<String,String> map = new HashMap<>();
+		System.out.println("测试git");
 		map.put("loginUsername","root");
 		map.put("loginPassword","546100");
 		servletRegistrationBean.setInitParameters(map);
